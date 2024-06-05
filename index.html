@@ -4,9 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="script.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.cdnfonts.com/css/public-pixel" rel="stylesheet">
     <title>Rock Paper Scissors</title>
 </head>
 <body>
-    <div>Rock Paper Scissors!</div>
+    <nav>
+        <div class="scr scr-head">SCORE</div>
+        <div class="scr-human">YOU: 0</div>
+        <div class="scr-computer">COMPUTER: 0</div>
+    </nav>
+    <div class="title flex-center">
+        First to 5 points wins!
+    </div>
+    <div class="playzone flex-center">
+        <div class="playzone-btn">
+            <button class="playBtn" id="ROCK">🪨</button>
+            <div>Rock</div>
+        </div>
+        <div class="playzone-btn">
+            <button class="playBtn" id="PAPER">📄</button>
+            <div>Paper</div>
+        </div>
+        <div class="playzone-btn">
+            <button class="playBtn" id="SCISSORS">✂️</button>
+            <div>Scissors</div>
+        </div>
+    </div>
+    <div class="result flex-center">
+
+    </div>
 </body>
 </html>

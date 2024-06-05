@@ -54,11 +54,15 @@ function logic(humanSelection, computerSelection) {
     }
 }
 
-// get human choice
-function getHumanChoice() {
-    let choice = prompt("Pick one (Rock/Paper/Scissors):").toUpperCase();
-    return choice
-}
+// add event listener to buttons
+document.addEventListener('DOMContentLoaded',() => {
+    let playButtons = document.querySelectorAll(".playBtn");
+    for (let i = 0 ; i < playButtons.length; i++) {
+        playButtons[i].addEventListener('click', function(e) {
+            playRound(e.target.id);
+        });
+    };
+});
 
 // get computer choice
 function getComputerChoice() {
@@ -75,35 +79,54 @@ function getComputerChoice() {
 
 // score counter
 function scoreBoard(winner) {
+    let scoreBoardHuman = document.querySelector('.scr-human');
+    let scoreBoardComputer = document.querySelector('.scr-computer');
+
     if (winner === "HUMAN") {
         humanScore += 1;
+        scoreBoardHuman.textContent = "YOU: " + humanScore
     } else if (winner === "COMPUTER") {
         computerScore += 1;
+        scoreBoardComputer.textContent = "COMPUTER: " + computerScore   
     }
 }
 
+function announceWinner() {
+    if (humanScore == 5 || computerScore == 5 ) {
+        let winner = (humanScore == 5) ? 'You' : 'Computer';
+        if(alert(`${winner} Won!`)){}
+        else window.location.reload(); 
+    } else if (humanScore > 5 || computerScore > 5) {
+        window.location.reload(); 
+    }
+}
 
-// play round
-function playRound() {
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
-
+function annonceRoundOutcome(humanSelection, computerSelection) {
+    let announcer = document.querySelector(".result")
+    roundOutcome = ''
     let Capitalization = word => word.charAt(0) + word.slice(1).toLowerCase()
 
     outcome = logic(humanSelection, computerSelection);
     if (outcome === "TIE") {
-        console.log(Capitalization(humanSelection) + " & " + Capitalization(computerSelection) + " is tie! " + "Current score for you is " + humanScore + " & computer is " + computerScore + ".")
+        roundOutcome = "Tie round! " + Capitalization(humanSelection) + " & " + Capitalization(computerSelection) + " is tie! "
     } else if (humanSelection === outcome) {
+        roundOutcome = "You score! " + Capitalization(humanSelection) + " beats " + Capitalization(computerSelection) + "! "
         scoreBoard("HUMAN")
-        console.log("You won! " + Capitalization(humanSelection) + " beats " + Capitalization(computerSelection) + "! " +"Current score for you is " + humanScore + " & computer is " + computerScore + ".")
     } else {
+        roundOutcome = "Computer score! " + Capitalization(computerSelection) + " beats " + Capitalization(humanSelection) + "! "
         scoreBoard("COMPUTER")
-        console.log("You lose! " + Capitalization(computerSelection) + " beats " + Capitalization(humanSelection) + "! " +"Current score for you is " + humanScore + " & computer is " + computerScore + ".")
     }
+    announcer.textContent = roundOutcome;
+
+    
 }
 
+// play round
+function playRound(humanChoice) {
+    const humanSelection = humanChoice;
+    const computerSelection = getComputerChoice();
 
-// play 5 rounds
-for (let i = 0; i < 5; i++) {
-    playRound()
+
+    annonceRoundOutcome(humanSelection, computerSelection);
+    announceWinner();
 }
