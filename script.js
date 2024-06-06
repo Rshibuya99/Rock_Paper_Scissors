@@ -1,41 +1,3 @@
-/*
-program flow:
-
-get human selection
-get computer selection
-evaluate winner
-log point for winner
-announce result
-repeat for 5 times
-
-functions:
-
-[get human selection]
-    - prompt input
-    - case insensitive
-
-[get computer selection]
-    - random
-
-[RPS logic]
-    - evaluate the outcome from both selections
-    - return one of three outcome
-        - human win / tie / human lost
-
-[score counter]
-    - increment winner point by 1
-
-
-[announce result]
-    - print winner and latest score status
-
-[play round]
-    - does everything above
-    - to be called 5 times
-
-*/
-
-
 // score tracker
 let humanScore = 0;
 let computerScore = 0;
@@ -54,7 +16,8 @@ function logic(humanSelection, computerSelection) {
     }
 }
 
-// add event listener to buttons
+
+// activate round on button click
 document.addEventListener('DOMContentLoaded',() => {
     let playButtons = document.querySelectorAll(".playBtn");
     for (let i = 0 ; i < playButtons.length; i++) {
@@ -63,6 +26,7 @@ document.addEventListener('DOMContentLoaded',() => {
         });
     };
 });
+
 
 // get computer choice
 function getComputerChoice() {
@@ -76,6 +40,7 @@ function getComputerChoice() {
         return "SCISSORS"
     }
 }
+
 
 // score counter
 function scoreBoard(winner) {
@@ -94,7 +59,7 @@ function scoreBoard(winner) {
 function announceWinner() {
     if (humanScore == 5 || computerScore == 5 ) {
         let winner = (humanScore == 5) ? 'You' : 'Computer';
-        if(alert(`${winner} Won!`)){}
+        if(alert(`${winner} Won!`)) {}
         else window.location.reload(); 
     } else if (humanScore > 5 || computerScore > 5) {
         window.location.reload(); 
@@ -117,15 +82,12 @@ function annonceRoundOutcome(humanSelection, computerSelection) {
         scoreBoard("COMPUTER")
     }
     announcer.textContent = roundOutcome;
-
-    
 }
 
 // play round
 function playRound(humanChoice) {
     const humanSelection = humanChoice;
     const computerSelection = getComputerChoice();
-
 
     annonceRoundOutcome(humanSelection, computerSelection);
     announceWinner();
